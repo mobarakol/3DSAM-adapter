@@ -92,7 +92,7 @@ class VIT_MLAHead_h(nn.Module):
                      nn.ReLU(),
                      nn.Conv3d(mlahead_channels, num_classes, 3, padding=1, bias=False))
 
-    def forward(self, inputs, scale_factor1, scale_factor2):
+    def forward(self, inputs, scale_factor1, scale_factor2): #inputs: [[1, 256, 32, 32, 32], [1, 256, 32, 32, 32], [1, 256, 32, 32, 32], [1, 256, 32, 32, 32]]
         x = self.mlahead(inputs[0], inputs[1], inputs[2], inputs[3], scale_factor = scale_factor1)
         x = torch.cat([x, inputs[-1]], dim=1)
         x = self.cls(x)
